@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+// ignore_for_file: use_key_in_widget_constructors, unnecessary_string_interpolations
 
 import 'package:flutter/material.dart';
 
@@ -15,49 +15,55 @@ class ChartBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(
-          height: 20,
-          child: FittedBox(
-            child: Text('${value!.toStringAsFixed(2)}'),
-          ),
-        ),
-        const SizedBox(
-          height: 5,
-        ),
-        SizedBox(
-          height: 70,
-          width: 10,
-          child: Stack(
-            alignment: Alignment.bottomCenter,
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.black,
-                      width: 1.0,
-                    ),
-                    borderRadius: BorderRadius.circular(5),
-                    color: Colors.grey),
+    return LayoutBuilder(
+      builder: (ctx, constraints) {
+        return Column(
+          children: [
+            SizedBox(
+              height: constraints.maxHeight * 0.15,
+              child: FittedBox(
+                child: Text('${value!.toStringAsFixed(2)}'),
               ),
-              FractionallySizedBox(
-                heightFactor: percentage,
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    color: Colors.red,
+            ),
+            SizedBox(
+              height: constraints.maxHeight * 0.05,
+            ),
+            SizedBox(
+              height: constraints.maxHeight * 0.6,
+              width: 10,
+              child: Stack(
+                alignment: Alignment.bottomCenter,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.black,
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(5),
+                        color: Colors.grey),
                   ),
-                ),
-              )
-            ],
-          ),
-        ),
-        const SizedBox(
-          height: 5,
-        ),
-        Text(label!)
-      ],
+                  FractionallySizedBox(
+                    heightFactor: percentage,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: Colors.red,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            SizedBox(
+              height: constraints.maxHeight * 0.05,
+            ),
+            SizedBox(
+                height: constraints.maxHeight * 0.15,
+                child: FittedBox(child: Text(label!)))
+          ],
+        );
+      },
     );
   }
 }

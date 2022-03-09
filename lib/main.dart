@@ -2,6 +2,7 @@
 
 import 'package:despesas_pessoais/components/chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'dart:math';
 import 'models/transation.dart';
@@ -13,6 +14,7 @@ main() => runApp(ExpensesApp());
 class ExpensesApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return MaterialApp(
       theme: ThemeData(
         fontFamily: "Lora-SemiBold",
@@ -71,17 +73,26 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final appBar = AppBar(title: Text("Despesas Pessoais"));
+    final availableHeight = MediaQuery.of(context).size.height -
+        appBar.preferredSize.height -
+        MediaQuery.of(context).padding.top;
     return Scaffold(
-      appBar: AppBar(title: Text("Despesas Pessoais")),
+      appBar: appBar,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Chart(_recentsTransactions),
-              TransactionList(
-                transactions: _transactions,
-                onRemove: _removeTransaction,
+              SizedBox(
+                  height: availableHeight * 0.35,
+                  child: Chart(_recentsTransactions)),
+              SizedBox(
+                height: availableHeight * 0.70,
+                child: TransactionList(
+                  transactions: _transactions,
+                  onRemove: _removeTransaction,
+                ),
               ),
             ],
           ),
