@@ -6,10 +6,15 @@ import 'package:flutter/material.dart';
 class TransactionForm extends StatefulWidget {
   final void Function(String, double, DateTime) onSubmit;
 
-  TransactionForm(this.onSubmit);
+  TransactionForm(this.onSubmit) {
+    print("Construtor transaction form");
+  }
 
   @override
-  State<TransactionForm> createState() => _TransactionFormState();
+  State<TransactionForm> createState() {
+    print("Creat state");
+    return _TransactionFormState();
+  }
 }
 
 class _TransactionFormState extends State<TransactionForm> {
@@ -21,6 +26,16 @@ class _TransactionFormState extends State<TransactionForm> {
 
   final valueController = TextEditingController();
   DateTime _selectedDate = DateTime.now();
+
+  _TransactionFormState() {
+    print("Construtor transaction");
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    print("initState TransactionForm");
+  }
 
   _submitForm() {
     {
